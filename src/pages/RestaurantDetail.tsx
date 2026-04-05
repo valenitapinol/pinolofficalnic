@@ -1,12 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { MenuItem as MenuItemType } from '../types';
-import MenuItem from '../components/MenuItem';
+import { type MenuItem as MenuItemType } from '../types';
 import { useStore } from '../store/useStore';
 import toast from 'react-hot-toast';
+import { supabase } from '../lib/supabase';
+import { useEffect, useState } from 'react';
 
-// Datos mock de menús por restaurante
 const mockMenus: Record<number, MenuItemType[]> = {
   1: [
     { id: 101, restaurantId: 1, name: 'Nacatamal', description: 'Nacatamal cerdo', price: 120 },
@@ -25,11 +24,27 @@ const mockMenus: Record<number, MenuItemType[]> = {
 export default function RestaurantDetail() {
   const { id } = useParams();
   const restaurantId = Number(id);
-  const [menu, setMenu] = useState<MenuItemType[]>([]);
   const addToCart = useStore((state) => state.addToCart);
+  const [menu, setMenu] = useState<MenuItemType[]>([]);
 
   useEffect(() => {
-    setMenu(mockMenus[restaurantId] || []);
+    const fetchMenu = async () => {
+      if (supabase) {
+        try {
+          const { data } = await supabase
+            .from('products')
+            .select('*')
+            .eq('restaurant_id', restaurantId);
+          if (data && data.length) setMenu(data);
+          else setMenu(mockMenus[restaurantId] || []);
+        } catch {
+          setMenu(mockMenus[restaurantId] || []);
+        }
+      } else {
+        setMenu(mockMenus[restaurantId] || []);
+      }
+    };
+    fetchMenu();
   }, [restaurantId]);
 
   const handleAddToCart = (item: MenuItemType) => {
@@ -50,7 +65,9 @@ export default function RestaurantDetail() {
                 <p className="text-gray-500">{item.description}</p>
                 <p className="text-green-700 font-semibold">${item.price}</p>
               </div>
-              <button onClick={() => handleAddToCart(item)} className="bg-red-600 text-white px-4 py-2 rounded-full">Agregar</button>
+              <button onClick={() => handleAddToCart(item)} className="bg-red-600 text-white px-4 py-2 rounded-full">
+                Agregar
+              </button>
             </div>
           ))}
         </div>

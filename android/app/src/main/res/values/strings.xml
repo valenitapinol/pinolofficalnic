@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PinolApp</string>
+    <string name="title_activity_main">PinolApp</string>
+    <string name="package_name">com.pinolapp.delivery</string>
+    <string name="custom_url_scheme">com.pinolapp.delivery</string>
+</resources>
