@@ -2,6 +2,7 @@ import { User, Search, MapPin } from 'lucide-react';
 import CartIcon from './CartIcon';
 import { Link } from 'react-router-dom';
 import { useStore } from '../store/useStore';
+import logo from '../assets/logo.svg';
 
 export default function Header() {
   const user = useStore((state) => state.user);
@@ -10,9 +11,7 @@ export default function Header() {
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center mr-2">
-              <span className="text-red-600 font-bold text-lg">🇳🇮</span>
-            </div>
+            <img src={logo} alt="PinolApp Logo" className="w-10 h-10 mr-2" />
             <div>
               <h1 className="text-xl font-bold">PinolApp</h1>
               <p className="text-xs text-red-100">Delivery Nicaragüense</p>
