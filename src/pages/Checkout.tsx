@@ -35,17 +35,21 @@ export default function Checkout() {
     setLoading(true);
 
     try {
-      const restaurantId = cart[0]?.restaurantId;
-      // Simular creación de pedido con datos mock
-      const mockOrderId = Math.floor(Math.random() * 100000);
+      // Guardar información del pedido en sesión/storage
+      sessionStorage.setItem('checkout_data', JSON.stringify({
+        cart,
+        address,
+        phone,
+        notes,
+        total: final_total,
+      }));
+
+      toast.success('✅ Proceder al pago');
       
-      toast.success('✅ Pedido confirmado');
-      clearCart();
-      
-      // Redirigir a seguimiento
+      // Redirigir a página de pago
       setTimeout(() => {
-        navigate(`/tracking/${mockOrderId}`);
-      }, 1500);
+        navigate('/payment');
+      }, 800);
     } catch (error) {
       console.error(error);
       toast.error('Error al procesar el pedido');

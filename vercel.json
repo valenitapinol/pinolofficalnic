@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "env": [
+    {
+      "key": "VITE_SUPABASE_URL",
+      "description": "URL del proyecto Supabase"
+    },
+    {
+      "key": "VITE_SUPABASE_ANON_KEY",
+      "description": "Clave anónima de Supabase"
+    }
+  ]
+}
