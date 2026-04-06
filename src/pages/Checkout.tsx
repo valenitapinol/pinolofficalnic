@@ -16,7 +16,6 @@ export default function Checkout() {
       return;
     }
 
-    // Obtener el restaurant_id del primer producto (asumimos que todos los items son del mismo restaurante)
     const restaurantId = cart[0]?.restaurantId;
     if (!restaurantId) {
       toast.error('Carrito vacío');
@@ -41,7 +40,7 @@ export default function Checkout() {
       return;
     }
 
-    // 2. Insertar los items del pedido
+    // 2. Insertar los items
     const items = cart.map((item) => ({
       order_id: order.id,
       product_id: item.id,
@@ -58,7 +57,7 @@ export default function Checkout() {
 
     toast.success('Pedido realizado');
     clearCart();
-    sed -i 's|navigate('/orders')|navigate(`/tracking/${order.id}`)|' src/pages/Checkout.tsx
+    navigate('/orders');
   };
 
   return (
