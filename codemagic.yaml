@@ -1,7 +1,7 @@
 workflows:
   android-workflow:
     name: PinolApp Android Build
-    instance_type: ubuntu
+    instance_type: linux
     environment:
       node: 20
     scripts:
