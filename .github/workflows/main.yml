@@ -37,6 +37,9 @@ jobs:
       - name: Remove old Capacitor config (if any)
         run: rm -f capacitor.config.ts
 
+      - name: Remove existing android folder (if any)
+        run: rm -rf android
+
       - name: Initialize Capacitor
         run: npx cap init PinolApp com.pinolapp.delivery --web-dir=dist
 
