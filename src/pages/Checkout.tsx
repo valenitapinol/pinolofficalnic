@@ -58,7 +58,7 @@ export default function Checkout() {
 
     toast.success('Pedido realizado');
     clearCart();
-    navigate('/orders');
+    sed -i 's|navigate('/orders')|navigate(`/tracking/${order.id}`)|' src/pages/Checkout.tsx
   };
 
   return (
