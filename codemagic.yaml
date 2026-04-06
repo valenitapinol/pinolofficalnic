@@ -1,0 +1,31 @@
+workflows:
+  android-workflow:
+    name: PinolApp Android Build
+    instance_type: mac_mini
+    environment:
+      groups:
+        - supabase_credentials  # Opcional: si quieres usar variables de entorno en CodeMagic
+      node: 20
+    scripts:
+      - name: Install dependencies
+        script: npm install
+      - name: Build web app
+        script: npm run build
+      - name: Setup Capacitor
+        script: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init PinolApp com.pinolapp.delivery --web-dir=dist
+          npx cap add android
+          npx cap copy
+          npx cap sync
+      - name: Build Android APK
+        script: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+    artifacts:
+      - android/app/build/outputs/apk/debug/*.apk
+    publishing:
+      email:
+        recipients:
+          - tu-email@ejemplo.com  # Cambia por tu correo
