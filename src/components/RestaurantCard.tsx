@@ -1,28 +1,42 @@
+import { Clock, Star, MapPin } from 'lucide-react';
+
 interface RestaurantCardProps {
+  id: number;
   name: string;
   rating: number;
   time: number;
   price: number;
-  image?: string;
+  category?: string;
 }
 
-export default function RestaurantCard({ name, rating, time, price }: RestaurantCardProps) {
-  const fullStars = Math.floor(rating);
-  const emptyStars = 5 - fullStars;
+export default function RestaurantCard({ name, rating, time, price, category }: RestaurantCardProps) {
   return (
-    <div className="flex items-center gap-4 border-b border-gray-100 pb-3 mb-3">
-      <div className="w-16 h-16 bg-gray-200 rounded-xl flex items-center justify-center text-2xl">
-        🍽️
-      </div>
-      <div className="flex-1">
-        <h3 className="font-bold text-lg">{name}</h3>
-        <div className="flex items-center gap-2 text-sm">
-          <span className="text-yellow-500">
-            {'★'.repeat(fullStars)}{'☆'.repeat(emptyStars)}
-          </span>
-          <span className="text-gray-500">{time} min</span>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow">
+      <div className="flex justify-between items-start mb-2">
+        <div>
+          <h3 className="font-semibold text-lg text-gray-800">{name}</h3>
+          {category && (
+            <p className="text-sm text-red-600 font-medium">{category}</p>
+          )}
         </div>
-        <p className="text-green-700 font-semibold">C$ {price}</p>
+        <div className="flex items-center bg-green-50 px-2 py-1 rounded-full">
+          <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
+          <span className="text-sm font-medium text-green-700">{rating}</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between text-sm text-gray-600">
+        <div className="flex items-center">
+          <Clock className="w-4 h-4 mr-1" />
+          <span>{time} min</span>
+        </div>
+        <div className="flex items-center">
+          <MapPin className="w-4 h-4 mr-1" />
+          <span>Envío gratis</span>
+        </div>
+        <div className="font-medium text-gray-800">
+          C${price}
+        </div>
       </div>
     </div>
   );
