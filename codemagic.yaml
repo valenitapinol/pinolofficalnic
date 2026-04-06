@@ -1,4 +1,3 @@
-cat > codemagic.yaml << 'EOF'
 workflows:
   android-workflow:
     name: PinolApp Android Build
@@ -24,4 +23,3 @@ workflows:
           ./gradlew assembleDebug
     artifacts:
       - android/app/build/outputs/apk/debug/*.apk
-EOF
