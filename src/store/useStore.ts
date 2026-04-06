@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { CartItem, Order } from '../types';
+import { supabase } from '../lib/supabase';
 
 interface Store {
   cart: CartItem[];
@@ -9,12 +10,16 @@ interface Store {
   clearCart: () => void;
   getTotal: () => number;
 
-  user: { id: number; name: string; email: string } | null;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
+  user: any | null;
+  loadingUser: boolean;
+  setUser: (user: any) => void;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
 
   orders: Order[];
   addOrder: (order: Order) => void;
+  fetchOrders: () => Promise<void>;
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -41,15 +46,47 @@ export const useStore = create<Store>((set, get) => ({
   getTotal: () => get().cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
 
   user: null,
-  login: (email, password) => {
-    if (email && password) {
-      set({ user: { id: 1, name: 'Carlos', email } });
-      return true;
+  loadingUser: true,
+  setUser: (user) => set({ user, loadingUser: false }),
+
+  login: async (email, password) => {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      console.error(error);
+      return false;
     }
-    return false;
+    set({ user: data.user });
+    return true;
   },
-  logout: () => set({ user: null, cart: [] }),
+
+  register: async (email, password) => {
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      console.error(error);
+      return false;
+    }
+    set({ user: data.user });
+    return true;
+  },
+
+  logout: async () => {
+    await supabase.auth.signOut();
+    set({ user: null, cart: [] });
+  },
 
   orders: [],
   addOrder: (order) => set((state) => ({ orders: [order, ...state.orders] })),
+  fetchOrders: async () => {
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*, order_items(*, products(*))')
+      .order('created_at', { ascending: false });
+    if (error) console.error(error);
+    else set({ orders: data || [] });
+  },
 }));
+
+// Escuchar cambios en la sesión de Supabase
+supabase.auth.onAuthStateChange((_event, session) => {
+  useStore.getState().setUser(session?.user || null);
+});

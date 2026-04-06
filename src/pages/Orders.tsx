@@ -1,9 +1,17 @@
+import { useEffect } from 'react';
 import { useStore } from '../store/useStore';
 import Header from '../components/Header';
 import { format } from 'date-fns';
 
 export default function Orders() {
-  const orders = useStore((state) => state.orders);
+  const { orders, fetchOrders, user } = useStore();
+
+  useEffect(() => {
+    if (user) fetchOrders();
+  }, [user]);
+
+  if (!user) return <div className="p-4">Inicia sesión para ver tus pedidos</div>;
+
   return (
     <div>
       <Header />
@@ -12,8 +20,8 @@ export default function Orders() {
         {orders.length === 0 && <p>No hay pedidos aún.</p>}
         {orders.map((order) => (
           <div key={order.id} className="border p-3 rounded-xl mb-3">
-            <p className="font-bold">Pedido #{order.id.slice(-6)}</p>
-            <p>Fecha: {format(new Date(order.date), 'dd/MM/yyyy HH:mm')}</p>
+            <p className="font-bold">Pedido #{order.id}</p>
+            <p>Fecha: {format(new Date(order.created_at || order.date), 'dd/MM/yyyy HH:mm')}</p>
             <p>Total: ${order.total}</p>
             <p>Estado: {order.status}</p>
           </div>

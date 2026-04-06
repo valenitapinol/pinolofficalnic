@@ -6,18 +6,17 @@ import toast from 'react-hot-toast';
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = useStore((state) => state.login);
+  const register = useStore((state) => state.register);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock: registra y loguea automáticamente
-    if (email && password) {
-      login(email, password);
+    const success = await register(email, password);
+    if (success) {
       toast.success('Registro exitoso');
       navigate('/');
     } else {
-      toast.error('Completa los campos');
+      toast.error('Error al registrarse');
     }
   };
 

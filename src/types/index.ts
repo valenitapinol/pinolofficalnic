@@ -26,4 +26,7 @@ export interface Order {
   total: number;
   date: string;
   status: 'pending' | 'preparing' | 'delivering' | 'delivered';
+  created_at?: string;    // para pedidos de Supabase
+  user_id?: string;
+  restaurant_id?: number;
 }
