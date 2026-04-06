@@ -9,7 +9,7 @@ export default function Profile() {
   const user = useStore((state) => state.user);
   const logout = useStore((state) => state.logout);
   const navigate = useNavigate();
-  const [addresses, setAddresses] = useState([
+  const [addresses] = useState([
     { id: 1, label: 'Casa', address: 'De Rotonda Metrocentro 200m norte', default: true },
     { id: 2, label: 'Oficina', address: 'Barrio Los Robles, Managua', default: false },
   ]);

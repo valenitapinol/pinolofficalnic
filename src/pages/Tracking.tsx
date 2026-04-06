@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import DriverMap from '../components/DriverMap';
 import ChatBox from '../components/ChatBox';
@@ -42,7 +41,6 @@ const drivers = [
 const getRandomDriver = () => drivers[Math.floor(Math.random() * drivers.length)];
 
 export default function Tracking() {
-  const { orderId } = useParams();
   const [order] = useState<Order>(mockOrder);
   const [timeLeft, setTimeLeft] = useState(mockOrder.estimated_delivery);
   const [activeTab, setActiveTab] = useState<'tracking' | 'chat'>('tracking');

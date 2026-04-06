@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useStore } from '../store/useStore';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
-import { Clock, MapPin, CheckCircle, Truck } from 'lucide-react';
+import { Clock, MapPin, Truck } from 'lucide-react';
 
 interface Order {
   id: string;

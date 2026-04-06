@@ -2,12 +2,11 @@ import { useStore } from '../store/useStore';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import toast from 'react-hot-toast';
-import { supabase } from '../lib/supabase';
 import { useState } from 'react';
 import { MapPin, DollarSign, MessageSquare, Truck } from 'lucide-react';
 
 export default function Checkout() {
-  const { cart, getTotal, clearCart, user } = useStore();
+  const { cart, getTotal, user } = useStore();
   const total = getTotal();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<'cash' | 'card' | 'transfer'>('cash');
