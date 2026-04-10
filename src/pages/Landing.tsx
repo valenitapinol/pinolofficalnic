@@ -1,3 +1,4 @@
+cat > src/pages/Landing.tsx << 'EOF'
 import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, MapPin, DollarSign, Users, TrendingUp } from 'lucide-react';
 
@@ -8,7 +9,7 @@ export default function Landing() {
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="text-3xl">🇳🇮</div>
+            <img src="/images/logo.png" alt="PinolApp" className="h-8 w-auto" />
             <h1 className="text-xl font-bold text-red-600">PinolApp</h1>
           </div>
           <nav className="hidden md:flex gap-6 items-center">
@@ -69,36 +70,12 @@ export default function Landing() {
           <h2 className="text-4xl font-bold text-center mb-16">¿Por qué elegir PinolApp?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                icon: <Zap className="w-12 h-12 text-red-600" />,
-                title: 'Súper Rápido',
-                desc: 'Entrega en 25-40 minutos a toda Managua',
-              },
-              {
-                icon: <DollarSign className="w-12 h-12 text-red-600" />,
-                title: 'Mejores Precios',
-                desc: 'Ofertas exclusivas y combos especiales',
-              },
-              {
-                icon: <Users className="w-12 h-12 text-red-600" />,
-                title: 'Conductores Verificados',
-                desc: 'Conductores confiables y profesionales',
-              },
-              {
-                icon: <MapPin className="w-12 h-12 text-red-600" />,
-                title: 'Rastreo en Vivo',
-                desc: 'Sigue tu pedido en tiempo real',
-              },
-              {
-                icon: <TrendingUp className="w-12 h-12 text-red-600" />,
-                title: 'Múltiples Pagos',
-                desc: 'Efectivo, tarjetas y transferencias banco',
-              },
-              {
-                icon: <ArrowRight className="w-12 h-12 text-red-600" />,
-                title: 'Chat en Vivo',
-                desc: 'Comunicate directamente con tu conductor',
-              },
+              { icon: <Zap className="w-12 h-12 text-red-600" />, title: 'Súper Rápido', desc: 'Entrega en 25-40 minutos a toda Managua' },
+              { icon: <DollarSign className="w-12 h-12 text-red-600" />, title: 'Mejores Precios', desc: 'Ofertas exclusivas y combos especiales' },
+              { icon: <Users className="w-12 h-12 text-red-600" />, title: 'Conductores Verificados', desc: 'Conductores confiables y profesionales' },
+              { icon: <MapPin className="w-12 h-12 text-red-600" />, title: 'Rastreo en Vivo', desc: 'Sigue tu pedido en tiempo real' },
+              { icon: <TrendingUp className="w-12 h-12 text-red-600" />, title: 'Múltiples Pagos', desc: 'Efectivo, tarjetas y transferencias banco' },
+              { icon: <ArrowRight className="w-12 h-12 text-red-600" />, title: 'Chat en Vivo', desc: 'Comunicate directamente con tu conductor' },
             ].map((feature, i) => (
               <div key={i} className="bg-gray-50 p-6 rounded-xl text-center hover:shadow-lg transition-shadow">
                 <div className="flex justify-center mb-4">{feature.icon}</div>
@@ -140,10 +117,7 @@ export default function Landing() {
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Únete a nuestra red de más de 500 conductores. Gana dinero trabajando con tu propio horario.
           </p>
-          <Link
-            to="/driver/register"
-            className="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 inline-flex items-center gap-2"
-          >
+          <Link to="/driver/register" className="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 inline-flex items-center gap-2">
             Registrarse como Conductor <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
@@ -202,3 +176,4 @@ export default function Landing() {
     </div>
   );
 }
+EOF
