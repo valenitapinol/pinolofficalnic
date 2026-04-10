@@ -1,3 +1,4 @@
+cat > src/components/Header.tsx << 'EOF'
 import { User, Search, MapPin } from 'lucide-react';
 import CartIcon from './CartIcon';
 import { Link } from 'react-router-dom';
@@ -30,3 +31,4 @@ export default function Header() {
     </header>
   );
 }
+EOF
