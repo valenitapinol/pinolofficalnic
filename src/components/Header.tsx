@@ -1,4 +1,3 @@
-cat > src/components/Header.tsx << 'EOF'
 import { User, Search, MapPin } from 'lucide-react';
 import CartIcon from './CartIcon';
 import { Link } from 'react-router-dom';
@@ -24,7 +23,6 @@ export default function Header() {
           </Link>
         </div>
       </div>
-      {/* Location bar */}
       <div className="mt-3 flex items-center text-sm text-red-100">
         <MapPin className="w-4 h-4 mr-1" />
         <span>Managua, Nicaragua</span>
@@ -32,4 +30,3 @@ export default function Header() {
     </header>
   );
 }
-EOF
